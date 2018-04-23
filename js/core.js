@@ -8,11 +8,13 @@ $(document).ready(function() {
         splitFlag = "https://";
     }
     var user = webURL.split(splitFlag)[1].split(".")[0];
+    //var repos_name=user + '.github.io';
+    var repos_name="blog4";
     //user = 'yanghanqing';
-    blogListURL = 'https://api.github.com/repos/' + user + '/' + user + '.github.io/contents/blog';
-    issuesList = 'https://api.github.com/repos/' + user + '/' + user + '.github.io/issues';
-    issuesHTML = 'https://github.com/' + user + '/' + user + '.github.io/issues'
-    readmeURL = 'https://raw.githubusercontent.com/' + user + '/' + user + '.github.io/master/About Me.md';
+    blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
+    issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
+    issuesHTML = 'https://github.com/' + user + '/' + repos_name + '/issues'
+    readmeURL = 'https://raw.githubusercontent.com/' + user + '/' + repos_name + '/master/About Me.md';
 
 
     $("#header").text(user + "'s Blog");
