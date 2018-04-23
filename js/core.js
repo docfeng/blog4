@@ -1,14 +1,13 @@
 var issuesList;
 var issuesHTML;
-alert();
+
 $(document).ready(function() {
     var webURL = window.location.href;
     var splitFlag = "http://";
     if (webURL.substring(0, 5) == "https") {
         splitFlag = "https://";
     }
-    var user = webURL.split(splitFlag)[1].split(".")[0];
-    alert(user);
+    var user = "docfeng";//webURL.split(splitFlag)[1].split(".")[0];
     //var repos_name=user + '.github.io';
     var repos_name="blog4";
     //user = 'yanghanqing';
