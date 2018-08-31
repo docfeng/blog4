@@ -231,7 +231,6 @@ function setData(){
     var USERNAME = data.username = $("#txt_username").val();
     var PASSWORD = data.password = document.getElementById("txt_password").value; //
     var TOKEN = data.token = $("#txt_token").val();
-    alert()
     alert(JSON.stringify(data));
     subComment(data);
 }
@@ -241,7 +240,7 @@ function subComment(data) {
     var title = $("#title").text();
     var author="";
     if (data.token == undefined || data.token == null || data.token == "") {
-       author="Basic " + btoa(USERNAME + ":" + PASSWORD);
+       author="Basic " + btoa(data.username + ":" + data.password);
     }else{
       author="token "+data.token;
     }
