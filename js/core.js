@@ -228,16 +228,15 @@ function login() {
 
 function setData(){
     var data={};
-    alert()
     var USERNAME = data.username = $("#txt_username").val();
-    alert()
     var PASSWORD = data.password = document.getElementById("txt_password").value; //
-    alert()
     var TOKEN = data.token = $("#txt_token").val();
-    alert(data)
+    alert(JSON.stringify(data));
     subComment(data);
 }
 function subComment(data) {
+    var console={};
+    console.log=function(txt){alert(txt)}
     var title = $("#title").text();
     var author="";
     if (data.token == undefined || data.token == null || data.token == "") {
