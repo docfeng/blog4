@@ -85,21 +85,11 @@ $(document).ready(function() {
                 flowChart: true, // 默认不解析
                 sequenceDiagram: true, // 默认不解析
             });
-
-
-
         });
     });
-
-
-
-
 })
 
-
-
 function setBlogTxt(obj) {
-
     // 隐藏Button
     if (!$('#btnNav').is(':hidden')) {
         $('#btnNav').click();
@@ -155,8 +145,6 @@ function setBlogTxt(obj) {
 function setCommentURL(issuesList, blogName) {
     $("#comments").show();
     console.log("获取并设置评论区");
-
-
     $.ajax({
         type: "GET",
         url: issuesList,
@@ -206,17 +194,15 @@ function setComment(commentURL) {
 
             var new_obj = $(commentHtml);
             $('#commentsList').append(new_obj);
-
         }
     });
-
 }
 
 //显示登录框
 function login() {
   var data=localStorage.getItem("data");
   if(data){
-      data=jsJSON.parse(data);
+      data=JSON.parse(data);
       $("#txt_username").val(data.username);
       document.getElementById("txt_password").value=data.password; //
       $("#txt_token").val(data.token);
@@ -235,8 +221,8 @@ function setData(){
     subComment(data);
 }
 function subComment(data) {
-    var console={};
-    console.log=function(txt){alert(txt)}
+    //var console={};
+    //console.log=function(txt){alert(txt)}
     var title = $("#title").text();
     var author="";
     if (data.token == undefined || data.token == null || data.token == "") {
