@@ -228,9 +228,13 @@ function login() {
 
 function setData(){
     var data={};
+    alert()
     var USERNAME = data.username = $("#txt_username").val();
+    alert()
     var PASSWORD = data.password = document.getElementById("txt_password").value; //
+    alert()
     var TOKEN = data.token = $("#txt_token").val();
+    alert(data)
     subComment(data);
 }
 function subComment(data) {
