@@ -212,6 +212,7 @@ function setComment(commentURL) {
 
 }
 
+//显示登录框
 function login() {
   var data=localStorage.getItem("data");
   if(data){
@@ -219,11 +220,12 @@ function login() {
       $("#txt_username").val(data.username);
       document.getElementById("txt_password").value=data.password; //
       $("#txt_token").val(data.token);
-      subComment();
+      subComment(data);
   }else{
     $('#myModal').modal();
   }
 }
+
 function setData(){
     var data={};
     var USERNAME = data.username = $("#txt_username").val();
