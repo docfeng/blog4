@@ -213,15 +213,32 @@ function setComment(commentURL) {
 }
 
 function login() {
+  var data=localStorage.getItem("data");
+  if(data){
+      data=jsJSON.parse(data);
+      $("#txt_username").val(data.username);
+      document.getElementById("txt_password").value=data.password; //
+      $("#txt_token").val(data.token);
+      subComment();
+  }else{
     $('#myModal').modal();
+  }
 }
-
-function subComment() {
-
-    var USERNAME = $("#txt_username").val();
-    var PASSWORD = document.getElementById("txt_password").value; //
-    var title = null;
-    title = $("#title").text();
+function setData(){
+    var data={};
+    var USERNAME = data.username = $("#txt_username").val();
+    var PASSWORD = data.password = document.getElementById("txt_password").value; //
+    var TOKEN = data.token = $("#txt_token").val();
+    subComment(data);
+}
+function subComment(data) {
+    var title = $("#title").text();
+    var author="";
+    if (data.token == undefined || data.token == null || data.token == "") {
+       author="Basic " + btoa(USERNAME + ":" + PASSWORD);
+    }else{
+      author="token "+data.token;
+    }
     // 未开启评论
     if (typeof($("#commentsList").attr("data_comments_url")) == "undefined") {
         if (title == undefined || title == null || title == "") {
@@ -229,14 +246,13 @@ function subComment() {
         }
 
         var createIssueJson = "{\"title\": \"" + title + "\"}";
-        console.log(createIssueJson);
         $.ajax({
             type: "POST",
             url: issuesList,
             dataType: 'json',
             async: false,
             headers: {
-                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                "Authorization": author//"Basic " + btoa(USERNAME + ":" + PASSWORD)
             },
             data: createIssueJson,
             success: function() {
@@ -266,7 +282,7 @@ function subComment() {
             dataType: 'json',
             async: false,
             headers: {
-                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                "Authorization": author//"Basic " + btoa(USERNAME + ":" + PASSWORD)
             },
             data: commentJson,
             success: function() {
@@ -275,6 +291,7 @@ function subComment() {
                 // 更新评论区
                 if (title != null) {
                     setCommentURL(issuesList, title);
+                    localStorage.setItem("data",JSON.stringify(data));
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
