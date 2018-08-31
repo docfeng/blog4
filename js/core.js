@@ -231,6 +231,7 @@ function setData(){
     var USERNAME = data.username = $("#txt_username").val();
     var PASSWORD = data.password = document.getElementById("txt_password").value; //
     var TOKEN = data.token = $("#txt_token").val();
+    alert()
     alert(JSON.stringify(data));
     subComment(data);
 }
