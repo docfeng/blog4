@@ -16,7 +16,6 @@ $(document).ready(function() {
     issuesHTML = 'https://github.com/' + user + '/' + repos_name + '/issues'
     readmeURL = 'https://raw.githubusercontent.com/' + user + '/' + repos_name + '/master/About Me.md';
 
-
     $("#header").text(user + "'s Blog");
     $("#commentsList").removeAttr('data_comments_url');
     $("#tips").html("我们不会获取您的用户名和密码,评论直接通过 HTTPS 与 Github API交互,<br>如果您开启了两步验证,请在博客的<a  target=\"_blank\" href=\"" + issuesHTML + "\">Github issues</a>下添加 Comment");
@@ -58,12 +57,7 @@ $(document).ready(function() {
             new_li.append(new_a);
             $('#nav').append(new_li);
             $('#nav2').append(new_li.clone());
-
-
-
         }
-
-
         //set readme 
         $.get(readmeURL, function(result) {
             $("#title").show();
@@ -101,14 +95,11 @@ function setBlogTxt(obj) {
     var type = obj.attr("data_type");
     $("#title").text(blogName);
     $("#article").html("loading . . .");
-
     // set blog content     
     $.get(blogURL, function(result) {
         $("#title").show();
         if (type == "markdown") {
-
             $("#article").html("");
-
             testEditormdView = editormd.markdownToHTML("article", {
                 markdown: result, //+ "\r\n" + $("#append-test").text(),
                 // htmlDecode: true, // 开启 HTML 标签解析，为了安全性，默认不开启
@@ -130,16 +121,9 @@ function setBlogTxt(obj) {
             $("#title").hide();
             $("#article").html(result);
         }
-
     });
-
-
-
-
     //get comments_url
     setCommentURL(issuesList, blogName);
-
-
 }
 
 function setCommentURL(issuesList, blogName) {
