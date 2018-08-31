@@ -203,8 +203,6 @@ function login() {
   var data=localStorage.getItem("data");
   if(data){
       data=JSON.parse(data);
-      $("#txt_username").val(data.username);
-      document.getElementById("txt_password").value=data.password; //
       $("#txt_token").val(data.token);
       subComment(data);
   }else{
