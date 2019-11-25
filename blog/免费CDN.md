@@ -1,6 +1,6 @@
 #通过GitHub引用资源
-1. 直接引用资源:`https://github.com/docfeng/page/script/base.js`
-2. 引用版本号:`https://github.com/docfeng/page/blob/v1.0/script/base.js`
+1. 直接资源:`https://github.com/docfeng/page/blob/master/script/base.js`
+2. 版本号:`https://github.com/docfeng/page/blob/1.0/script/base.js`
 3. 间接引用资源:`https://cdn.jsdelivr.net/gh/yuDuChen/yuduchen@v1.5.6/layui/layui.js`
 
 
