@@ -1,10 +1,11 @@
 #通过GitHub引用资源
 1. 直接引用资源:`https://github.com/docfeng/page/script/base.js`
 2. 间接引用资源:`https://github.com/docfeng/page/blob/v1.0/script/base.js`
+
 #通过jsDelivr引用资源
 1. https://cdn.jsdelivr.net/gh/yuDuChen/yuduchen@v1.5.6/layui/layui.js 
 
-使用方法：https://cdn.jsdelivr.net/gh/你的用户名/你的仓库名@发布的版本号/文件路径
+使用方法：`https://cdn.jsdelivr.net/gh/你的用户名/你的仓库名@发布的版本号/文件路径`
 例如：
 ```
 https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@1.0/images/trhx.png
