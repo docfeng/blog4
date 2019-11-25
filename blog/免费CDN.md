@@ -1,7 +1,12 @@
-通过jsDelivr引用资源
+#通过GitHub引用资源
+1. 直接引用资源:`https://github.com/docfeng/page/script/base.js`
+2. 间接引用资源:`https://github.com/docfeng/page/blob/v1.0/script/base.js`
+#通过jsDelivr引用资源
+1. https://cdn.jsdelivr.net/gh/yuDuChen/yuduchen@v1.5.6/layui/layui.js 
+
 使用方法：https://cdn.jsdelivr.net/gh/你的用户名/你的仓库名@发布的版本号/文件路径
 例如：
-
+```
 https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@1.0/images/trhx.png
 https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.1/css/style.css
 https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.3//The%20Pet%20Girl%20of%20Sakurasou.mp4
@@ -25,7 +30,4 @@ https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/src/core.min.js
 
 // 在末尾添加 / 以获取资源目录列表
 https://cdn.jsdelivr.net/gh/jquery/jquery/
-————————————————
-https://github.com/yuDuChen/yuduchen/blob/v1.5.6/layui/layui.js 
-这个地址用jsdelivr来访问
-https://cdn.jsdelivr.net/gh/yuDuChen/yuduchen@v1.5.6/layui/layui.js 
+```
