@@ -64,12 +64,12 @@ deleteCell()	删除行中的指定的单元格。
 insertCell()	在一行中的指定位置插入一个空的 <td> 元素。
 
 
-TableCell 对象
+#TableCell 对象
 TableCell 对象代表一个 HTML 表格单元格。
 
 在一个 HTML 文档中 <td> 标签每出现一次，一个 TableCell 对象就会被创建。
 
-#TableCell 对象属性
+##TableCell 对象属性
 属性	描述
 abbr	设置或返回单元格中内容的缩写版本。
 align	设置或返回单元格内部数据的水平排列方式。
