@@ -12,3 +12,49 @@ layerX/layerY：FF特有,鼠标相比较于当前坐标系的位置,即如果触
 chrome和safari一条龙通杀!完全支持所有属性.其中(offsetX和layerX都是以border为参考点)
 下面这个是获取相对于屏幕的坐标
 document.onmousemove=function(e){e=e? e:window.event;document.writeln("X:"+e.screenX+"Y:"+e.screenY);}
+
+var  dom =  document.elementFromPoint(3, 3) ;
+alert(dom.tagName.toLowerCase())
+
+function GetDomByPosition(x,y) {
+
+    var sx =document.documentElement.scrollLeft;
+    var sy =document.documentElement.scrollTop;
+    var  dom =  document.elementFromPoint(x-sx, y-sy) ;
+
+    if (dom == null) {
+        return null;
+    }
+
+    var $dom =$(dom);
+    var DomName = $dom[0].tagName.toLowerCase();
+
+    if (DomName == 'html' || DomName == 'body') {
+        return null;
+    }
+
+    while (DomName == 'iframe' || DomName == 'frame')
+    {
+
+        var FLeft = Math.ceil($dom.offset().left);
+        var FTop  = Math.ceil($dom.offset().top);
+        x = x - FLeft;
+        y = y - FTop;
+        // alert ('坐标:'+ x+'*'+y );
+        var $dom=$($dom[0].contentWindow.document.elementFromPoint(x, y));
+
+        if ($dom[0]== null) {
+            return null;
+        }
+
+        DomName = $dom[0].tagName.toLowerCase();
+
+        if (DomName == 'html' || DomName == 'body') {
+            return null;
+        }
+
+    }
+
+    return $dom;
+
+}
