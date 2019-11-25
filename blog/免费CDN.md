@@ -26,5 +26,6 @@ https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/src/core.min.js
 // 在末尾添加 / 以获取资源目录列表
 https://cdn.jsdelivr.net/gh/jquery/jquery/
 ————————————————
-版权声明：本文为CSDN博主「TRHX」的原创文章，遵循 CC 4.0 BY-NC-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/qq_36759224/article/details/86936453
+https://github.com/yuDuChen/yuduchen/blob/v1.5.6/layui/layui.js 
+这个地址用jsdelivr来访问
+https://cdn.jsdelivr.net/gh/yuDuChen/yuduchen@v1.5.6/layui/layui.js 
