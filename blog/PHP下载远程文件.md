@@ -9,7 +9,20 @@ file_put_contents($path,$file);
 ```
 
 #fopen
-
+```
+<?php
+$src="http://git.docfeng.top/1.mp3";
+$path="3.mp3";
+$file = fopen($src,"r");
+$file2 = fopen($path,"w");
+while (!feof($file) && $i++ < 1000) {
+    $contents = fread($file, 4096);
+    fwrite($file2,$contents);
+}
+fclose($file);
+fclose($file2);
+?>
+```
 
 
 
