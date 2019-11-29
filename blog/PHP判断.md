@@ -23,3 +23,10 @@ if(!method_exists($directory,'read')){
     echo '未定义read方法！';
 }
 ```
+is_bool();//判断是否为布尔型
+   is_float(); //判断是否为浮点型
+   is_int(); //判断是否为整型
+   is_numeric(); //判断是否为数值型
+   is_string(); //判断是否为字符串
+   is_array(); //判断是否为数组
+   is_object(); //判断是否为对象
