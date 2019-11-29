@@ -207,3 +207,120 @@ EOF;
    $db->close();
 ?>
 ```
+[TOC]
+
+```
+<?php
+   class MyDB extends SQLite3
+   {
+      function __construct()
+      {
+         $this->open('test.db');
+      }
+      function createTable($sql){
+          $ret = $this->exec($sql);
+          if(!$ret){
+              echo $this->lastErrorMsg();
+          } else {
+              echo "Table created successfully\n";
+          }
+      }
+      function insert($sql){
+          $ret = $this->exec($sql);
+          if(!$ret){
+              echo $this->lastErrorMsg();
+          } else {
+              echo "Records created successfully\n";
+          }
+      }
+      function select($sql){
+          $ret = $this->query($sql);
+          $re=[];
+          while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
+              $re[]= $row;
+          }
+          return $re;
+      }
+      function update($sql){
+          $ret = $this->exec($sql);
+          if(!$ret){
+              echo $this->lastErrorMsg();
+          } else {
+              echo "Table created successfully\n";
+          }
+      }
+      function delete($sql){
+          $ret = $this->exec($sql);
+          if(!$ret){
+              echo $this->lastErrorMsg();
+          } else {
+              echo "Table created successfully\n";
+          }
+      }
+   }
+   $db = new MyDB();
+   if(!$db){
+      echo $db->lastErrorMsg();
+   } else {
+      echo "Opened database successfully\n";
+   }
+   /*
+   $sql =<<<EOF
+      CREATE TABLE COMPANY
+      (ID INT PRIMARY KEY     NOT NULL,
+      NAME           TEXT    NOT NULL,
+      AGE            INT     NOT NULL,
+      ADDRESS        CHAR(50),
+      SALARY         REAL);
+EOF;
+ */
+ 
+ $arr=Array("ID"=> "INT PRIMARY KEY     NOT NULL",
+      "NAME"=>           "TEXT    NOT NULL",
+      "AGE"=>            "INT     NOT NULL",
+      "ADDRESS"=>        "CHAR(50)",
+      "SALARY"=>         "REAL"
+);
+function sqlcreate($name,$arr){
+    $str="";
+    $re=[];
+    foreach($arr as $a=>$d){
+        //$str.=$a." ".$d.",";
+        $re[]=$a." ".$d;
+    }
+    $str= join(",",$re);
+    return "CREATE TABLE $name($str);";
+}
+   //$sql= sqlcreate("test1",$arr);
+   //$db->createTable($sql);
+   
+   
+   $sql =<<<EOF
+      INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
+      VALUES (5, 'Paul', 32, 'California', 20000.00 );
+      INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
+      VALUES (6, 'Allen', 25, 'Texas', 15000.00 );
+      INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
+      VALUES (7, 'Teddy', 23, 'Norway', 20000.00 );
+      INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
+      VALUES (8, 'Mark', 25, 'Rich-Mond ', 65000.00 );
+EOF;
+ 
+   //$ret = $db->insert($sql);
+   
+   
+   $sql =<<<EOF
+      SELECT * from COMPANY;
+EOF;
+   $arr=$db->select($sql);
+   foreach($arr as $row ){
+      echo "ID = ". $row['ID'] . "<br />\n";
+      echo "NAME = ". $row['NAME'] ."<br/>\n";
+      echo "ADDRESS = ". $row['ADDRESS'] ."<br/>\n";
+      echo "SALARY =  ".$row['SALARY'] ."<br/><br/>\n\n";
+   }
+   
+   
+   $db->close();
+?>
+```
