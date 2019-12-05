@@ -33,4 +33,7 @@ https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/src/core.min.js
 
 6. 在末尾添加 / 以获取资源目录列表
 https://cdn.jsdelivr.net/gh/jquery/jquery/
+
+7. 合并文件
+https://cdn.jsdelivr.net/combine/gh/docfeng/page/script/base.js,gh/docfeng/page/script/http.js
 ```
