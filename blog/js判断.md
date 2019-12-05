@@ -13,6 +13,12 @@ var supportJS=function(js){
     }
 }
 alert(supportCSS("flex"))
-alert(supportJS("indexedDB"))
+alert(supportCSS("-webkit-box-flex"))
+alert(supportCSS("-moz-box-flex"))
+alert(supportCSS("-webkit-flex"))
+alert(supportCSS("-ms-flex"))
+
+/*alert(supportJS("indexedDB"))
 alert(supportJS("localStorage"))
 alert(supportJS("openDatabase"))
+*/
