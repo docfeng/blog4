@@ -11,8 +11,8 @@ $(document).ready(function() {
     //var repos_name=user + '.github.io';
     var repos_name="blog4";
     //user = 'yanghanqing';
-    blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
-    alert()
+    blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/';
+    alert(1)
     if(!location.pathname.substr(-5).match(/\./)){
         blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents'+location.pathname.replace(/^(\/)|(\/)$/g, '');
         alert(blogListURL)
