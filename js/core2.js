@@ -1,6 +1,6 @@
 var issuesList;
 var issuesHTML;
-
+alert()
 $(document).ready(function() {
     var webURL = window.location.href;
     var splitFlag = "http://";
