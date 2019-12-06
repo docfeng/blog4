@@ -1,6 +1,5 @@
 var issuesList;
 var issuesHTML;
-alert()
 $(document).ready(function() {
     var webURL = window.location.href;
     var splitFlag = "http://";
@@ -12,9 +11,9 @@ $(document).ready(function() {
     var repos_name="blog4";
     //user = 'yanghanqing';
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
-    alert(1)
+    alert(2)
     if(!location.pathname.substr(-5).match(/\./)){
-        blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents'+location.pathname.replace(/^(\/)|(\/)$/g, '');
+        blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+location.pathname.replace(/^(\/)|(\/)$/g, '');
         alert(blogListURL)
     }
     issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
@@ -58,7 +57,9 @@ $(document).ready(function() {
             //new_a.attr("href", "?title=" + name);
             new_a.attr("href", "#");
             new_a.attr("data_type", type);
-            new_a.attr("onclick", "setBlogTxt(this)");
+            new_a.attr("data_type2", json[i].type);
+            
+            new_a.attr("onclick", "listClick(this)");
             new_li.append(new_a);
             $('#nav').append(new_li);
             $('#nav2').append(new_li.clone());
@@ -86,8 +87,15 @@ $(document).ready(function() {
             });
         });
     });
-})
+});
 
+function listClick(obj){
+    if($(obj).attr("data_type2")=="dir"){
+        location.href=location.origin+"/"+obj.innerHTML;
+    }else{
+       setBlogTxt(obj);
+    }
+}
 function setBlogTxt(obj) {
     // 隐藏Button
     if (!$('#btnNav').is(':hidden')) {
