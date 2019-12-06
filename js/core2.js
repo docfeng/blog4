@@ -59,7 +59,7 @@ $(document).ready(function() {
             new_a.attr("data_type", type);
             new_a.attr("data_type2", json[i].type);
             if(json[i].type=="dir"){
-                new_a.attr("data_type2", json[i].path);
+                new_a.attr("data_path", json[i].path);
             }
             new_a.attr("onclick", "listClick(this)");
             new_li.append(new_a);
@@ -93,7 +93,7 @@ $(document).ready(function() {
 
 function listClick(obj){
     if($(obj).attr("data_type2")=="dir"){
-        location.href=location.origin+"/"+obj.innerHTML;
+        location.href=location.origin+"/"+$(obj).attr("data_path");
     }else{
        setBlogTxt(obj);
     }
