@@ -13,7 +13,7 @@ $(document).ready(function() {
     //user = 'yanghanqing';
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
     if(!location.pathname.substr(-5).match(/\./)){
-        blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents'+location.pathname;
+        blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents'+location.pathname.replace(/^(\/)|(\/)$/g, '');
     }
     issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
     issuesHTML = 'https://github.com/' + user + '/' + repos_name + '/issues'
