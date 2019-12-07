@@ -54,7 +54,7 @@ $(document).ready(function() {
             new_a.attr("data_blogURL", blogURL);
             new_a.attr("data_name", name);
             //new_a.attr("href", "?title=" + name);
-            new_a.attr("href", "#");
+            new_a.attr("href", "javascript:void()");
             new_a.attr("data_type", type);
             new_a.attr("data_type2", json[i].type);
             if(json[i].type=="dir"){
