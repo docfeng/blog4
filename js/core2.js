@@ -30,6 +30,8 @@ $(document).ready(function() {
     $.get(url, function(html) {
            var arr=formatCND(html);
            console.log(arr);
+           var dir=arr[0];
+           var file=arr[1];
            for (var i = 0; i < dir.length; i++) {
             var name = dir[i]; // Blog title
             var blogURL = url+"/"+name; //Blog Raw Url
