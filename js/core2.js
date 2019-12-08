@@ -14,9 +14,10 @@ $(document).ready(function() {
     if(!location.pathname.substr(-5).match(/\./)){
         blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+location.pathname.replace(/^(\/)|(\/)$/g, '');
         var url="https://cdn.jsdelivr.net/gh/"+user+"/"+repos_name +"/"+ location.pathname.replace(/^(\/)|(\/)$/g, '');
-        $.getJSON(url, function(json) {
-           alert(json)
-           console.log(json)
+        alert(url)
+        $.get(url, function(html) {
+           alert(html)
+           console.log(formatCND(html))
         });
         //alert(blogListURL)
     }
@@ -94,7 +95,27 @@ $(document).ready(function() {
         });
     });
 });
-
+var formatCND=function(html){
+    var str=html.replace(/(\t|\n\r)/g,"");
+    var str1=str.match(/<tbody>([\s\S]*?)<\/tbody>/)[1];
+    var arr=str1.match(/<tr>([\s\S]*?)<\/tr>/g);
+    var dir=[];
+    var file=[];
+    for(var i=0;i<arr.length;i++){
+      var arr1= arr[i].match(/<td[^>]*?><a[^>]*?>([\s\S]*?)<\/a><\/td>[^<]*?<td[^>]*?>([\s\S]*?)<\/td>[^<]*?<td[^>]*?>([\s\S]*?)<\/td>/);
+      if(arr1&&arr1.length==4){
+       //arr1.shift();
+       if(arr1[2]==""){
+           dir.push(arr1[1])
+       }else{
+           file.push(arr1[1]);
+       }
+       //console.log(arr1)
+       //console.log([arr1[1],arr1[2],arr1[3]])
+    }
+    }
+    return [dir,file];
+}
 function listClick(obj){
     if($(obj).attr("data_type2")=="dir"){
         location.href=location.origin+"/"+$(obj).attr("data_path");
