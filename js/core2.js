@@ -9,11 +9,13 @@ $(document).ready(function() {
     var user = "docfeng";//webURL.split(splitFlag)[1].split(".")[0];
     //var repos_name=user + '.github.io';
     var repos_name="blog4";
+    var path=location.pathname.replace(/^(\/)|(\/)$/g, '');
+    var url="https://cdn.jsdelivr.net/gh/"+user+"/"+repos_name +"/"+ path;
     //user = 'yanghanqing';
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
     if(!location.pathname.substr(-5).match(/\./)){
         blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+location.pathname.replace(/^(\/)|(\/)$/g, '');
-        var url="https://cdn.jsdelivr.net/gh/"+user+"/"+repos_name +"/"+ location.pathname.replace(/^(\/)|(\/)$/g, '');
+        
         alert(url)
         $.get(url, function(html) {
            alert(html)
