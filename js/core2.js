@@ -93,6 +93,7 @@ $(document).ready(function() {
             $('#nav2').append(new_li.clone());
         }
     });
+    /*
     $.getJSON(blogListURL, function(json) {
         for (var i = 0; i < json.length; i++) {
             var name = json[i].name; // Blog title
@@ -154,7 +155,7 @@ $(document).ready(function() {
                 sequenceDiagram: true, // 默认不解析
             });
         });
-    });
+    });*/
 });
 var formatCND=function(html){
     var str=html.replace(/(\t|\n\r)/g,"");
