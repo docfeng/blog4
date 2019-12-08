@@ -30,6 +30,66 @@ $(document).ready(function() {
     $.get(url, function(html) {
            var arr=formatCND(html);
            console.log(arr);
+           for (var i = 0; i < dir.length; i++) {
+            var name = dir[i]; // Blog title
+            var blogURL = url+"/"+name; //Blog Raw Url
+            // add blog list elements
+            var new_li = $("<li></li>");
+            var new_a = $("<a></a>")
+
+            var type = "markdown";
+            // delete '.md'
+            if (name.substr(-3, 3) == ".md") {
+                name = name.substr(0, name.length - 3);
+            } else if (name.substr(-5, 5) == ".html") {
+                name = name.substr(0, name.length - 5);
+                type = "html";
+            }
+            new_a.text(name);
+            //update content
+            new_a.attr("data_blogURL", blogURL);
+            new_a.attr("data_name", name);
+            //new_a.attr("href", "?title=" + name);
+            new_a.attr("href", "javascript:void()");
+            new_a.attr("data_type", type);
+            new_a.attr("data_type2", "dir");
+            
+                new_a.attr("data_path", path+"/"+name);
+                
+            new_a.attr("onclick", "listClick(this)");
+            new_li.append(new_a);
+            $('#nav').append(new_li);
+            $('#nav2').append(new_li.clone());
+        }
+        for (var i = 0; i < file.length; i++) {
+            var name = file[i]; // Blog title
+            var blogURL = url+"/"+name; //Blog Raw Url
+            // add blog list elements
+            var new_li = $("<li></li>");
+            var new_a = $("<a></a>")
+
+            var type = "markdown";
+            // delete '.md'
+            if (name.substr(-3, 3) == ".md") {
+                name = name.substr(0, name.length - 3);
+            } else if (name.substr(-5, 5) == ".html") {
+                name = name.substr(0, name.length - 5);
+                type = "html";
+            }
+            new_a.text(name);
+            //update content
+            new_a.attr("data_blogURL", blogURL);
+            new_a.attr("data_name", name);
+            //new_a.attr("href", "?title=" + name);
+            new_a.attr("href", "javascript:void()");
+            new_a.attr("data_type", type);
+            new_a.attr("data_type2", "file");
+                
+            new_a.attr("onclick", "listClick(this)");
+            new_li.append(new_a);
+            $('#nav').append(new_li);
+            $('#nav2').append(new_li.clone());
+        }
     });
     $.getJSON(blogListURL, function(json) {
         for (var i = 0; i < json.length; i++) {
