@@ -13,6 +13,11 @@ $(document).ready(function() {
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
     if(!location.pathname.substr(-5).match(/\./)){
         blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+location.pathname.replace(/^(\/)|(\/)$/g, '');
+        var url="https://cdn.jsdelivr.net/gh/"+user+"/"+repos_name +"/"+ location.pathname.replace(/^(\/)|(\/)$/g, '');
+        $.getJSON(url, function(json) {
+           alert(json)
+           console.log(json)
+        });
         //alert(blogListURL)
     }
     issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
