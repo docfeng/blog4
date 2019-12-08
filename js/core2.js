@@ -15,13 +15,6 @@ $(document).ready(function() {
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/blog';
     if(!location.pathname.substr(-5).match(/\./)){
         blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+location.pathname.replace(/^(\/)|(\/)$/g, '');
-        
-        alert(url)
-        $.get(url, function(html) {
-           alert(html)
-           console.log(formatCND(html))
-        });
-        //alert(blogListURL)
     }
     issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
     issuesHTML = 'https://github.com/' + user + '/' + repos_name + '/issues'
@@ -34,6 +27,10 @@ $(document).ready(function() {
     var titleString = getTitleString();
 
     //set Blog list    
+    $.get(url, function(html) {
+           var arr=formatCND(html);
+           console.log(arr);
+    });
     $.getJSON(blogListURL, function(json) {
         for (var i = 0; i < json.length; i++) {
             var name = json[i].name; // Blog title
