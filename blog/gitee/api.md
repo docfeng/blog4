@@ -1,4 +1,4 @@
-Content-Type: application/json
+#header添加Content-Type: application/json
 
-#"access_token"写在data中
+#access_token写在data中
 
