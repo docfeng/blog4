@@ -29,13 +29,14 @@
 </head>
 
 <body>
-    <div class="panel panel-white post " id="md">
+<input type="button" value='turn'  onclick="$('#md').toggle();$('#article').toggle();" />
+    <div style="width:100%;height:100%" id="md">
         <input type="button" value='eval'  onclick="eval(txt.value)" />
         <input type="button" value='md'  onclick="md(txt.value)" />
         <textarea id="txt" style="width:100%;height:100px;font: 0.7em Arial, Helvetica, sans-serif;"></textarea>
         <textarea id="txt2" style="width:100%;height:100px;font: 0.7em Arial, Helvetica, sans-serif;"></textarea>
     </div>
-    <div id="article"></div>
+    <div id="article" style="display:none"></div>
 <script>
 var md=function(){
     var result=txt.value;
