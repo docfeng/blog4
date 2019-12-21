@@ -39,7 +39,7 @@
 <script>
 var md=function(){
     var result=txt.value;
-    article.html="";
+    article.innerHTML="";
     var test = editormd.markdownToHTML("article", {
                 markdown: result, //+ "\r\n" + $("#append-test").text(),
                 // htmlDecode: true, // 开启 HTML 标签解析，为了安全性，默认不开启
