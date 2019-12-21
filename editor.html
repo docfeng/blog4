@@ -41,6 +41,7 @@
 <script>
 var md=function(){
     var result=txt.value;
+    article.html="";
     var test = editormd.markdownToHTML("article", {
                 markdown: result, //+ "\r\n" + $("#append-test").text(),
                 // htmlDecode: true, // 开启 HTML 标签解析，为了安全性，默认不开启
@@ -58,7 +59,7 @@ var md=function(){
                 sequenceDiagram: true, // 默认不解析
     });
     window.setTimeout(function(a){
-      txt1.var=article.innerHTML;
+      txt1.value=article.innerHTML;
 
     },2000)
 }
