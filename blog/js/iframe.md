@@ -52,3 +52,20 @@ function destroyIframe(iframe){
 	//把iframe从页面移除
 	iframe.parentNode.removeChild(iframe);
 }
+function createIframe(){
+        const iframe = document.createElement("iframe");
+        iframe.src = "iframe.html";
+        iframe.id = "ifr";
+        document.getElementById("content").appendChild(iframe);
+        console.log("创建iframe完成");
+    }
+    
+    function closeIframe(){
+        let iframe = document.getElementById("ifr");
+        iframe.src = "about:blank";
+        iframe.contentWindow.document.write('')
+        iframe.contentWindow.document.clear();
+        iframe.contentWindow.close();
+        iframe.parentNode.removeChild(iframe);
+        iframe = null;
+    }
