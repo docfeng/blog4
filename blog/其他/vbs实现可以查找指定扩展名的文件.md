@@ -1,4 +1,5 @@
-用vbs实现可以查找指定扩展名的文件，方便大家搜索
+#用vbs实现可以查找指定扩展名的文件，方便大家搜索
+```
 On Error Resume Next '忽略所有错误 
 Dim filename '声明变量 
 Dim re 
@@ -230,4 +231,4 @@ Set objfiles=Nothing
 Set objfile=Nothing 
 Set objdrive=Nothing 
 Set objfolders=Nothing 
-
+```
