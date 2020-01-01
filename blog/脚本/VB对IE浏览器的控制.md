@@ -1,3 +1,8 @@
+
+While IE.busy Or IE.readystate<>4
+        
+Wend
+
 #VB中对IE浏览器的控制
 #相信现在绝大多数计算机上使用的是IE浏览器。如何通过编程控制IE的操作呢，本文将一步步介绍如何通过VB调用IE的对象库来对IE进行控制
 。#
