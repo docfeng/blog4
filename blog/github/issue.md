@@ -1,13 +1,13 @@
-#issue[](https://developer.github.com/v3/issues/)
-####get
-#####url
+# issue[](https://developer.github.com/v3/issues/)
+#### get
+##### url
 ```
 https://api.github.com/repos/{user}/{repos}/issues
 https://api.github.com/repos/{user}/{repos}/issues/{issue_number}
 
 
 ```
-####参数
+#### 参数
 |Name|Type|Description
 |filter|string|Indicates which sorts of issues to return. Can be one of:* assigned: Issues assigned to you;created: Issues created by you;* mentioned: Issues mentioning you* subscribed: Issues you're subscribed to updates for* all: AllDefault: assigned|
 |state|string|Indicates the state of the issues to return. Can be either open, closed, or all. Default: open							|
@@ -26,16 +26,16 @@ https://api.github.com/repos/{user}/{repos}/issues/{issue_number}
 |sort		|string				|What to sort results by. Can be either created, updated, comments. Default: created																																	|
 |direction	|string				|The direction of the sort. Can be either asc or desc. Default: desc																																					|
 |since		|string				|Only issues updated at or after this time are returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.																									|
-#####使用：
+##### 使用：
 url?state=closed
 
 
-####Create
-#####url
+#### Create
+##### url
 ```
 post https://api.github.com/repos/{user}/{repos}/issues
 ```
-#####参数
+##### 参数
 |Name		|Type				|Description																																															|
 |title		|string				|Required. The title of the issue.																																										|
 |body		|string				|The contents of the issue.																																												|
@@ -43,7 +43,7 @@ post https://api.github.com/repos/{user}/{repos}/issues
 |milestone	|integer			|The number of the milestone to associate this issue with. NOTE: Only users with push access can set the milestone for new issues. The milestone is silently dropped otherwise.							|
 |labels		|array of strings	|Labels to associate with this issue. NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise.															|
 |assignees	|array of strings	|Logins for Users to assign to this issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.												|
-#####Example
+##### Example
 ```
 {
   "title": "Found a bug",
@@ -57,15 +57,15 @@ post https://api.github.com/repos/{user}/{repos}/issues
   ]
 }
 ```
-#####Response
+##### Response
 
 
-####Edit
-#####url
+#### Edit
+##### url
 ```
 PATCH  https://api.github.com/repos/{user}/{repos}/issues/{issue_number}
 ```
-#####参数
+##### 参数
 |Name		|Type				|Description																																																																						|
 |title		|string				|The title of the issue.																																																																			|
 |body		|string				|The contents of the issue.																																																																			|
@@ -76,7 +76,7 @@ PATCH  https://api.github.com/repos/{user}/{repos}/issues/{issue_number}
 |assignees	|array of strings	|Logins for Users to assign to this issue. Pass one or more user logins to replace the set of assignees on this Issue. Send an empty array ([]) to clear all assignees from the Issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.|
 
 
-#####Example
+##### Example
 ```
 {
   "title": "Found a bug",
@@ -91,7 +91,7 @@ PATCH  https://api.github.com/repos/{user}/{repos}/issues/{issue_number}
   ]
 }
 ```
-#####Response
+##### Response
 
 
 Lock an issue

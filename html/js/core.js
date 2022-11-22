@@ -1,20 +1,26 @@
 var issuesList;
 var issuesHTML;
-var blogPath = "blog";
-var user = "docfeng";
-var repos_name = "blog4";
-var site_url = "https://raw.githubusercontent.com/" + user + '/' + repos_name + '/master/';
-
+var blogPath;
 $(document).ready(function() {
+    var webURL = window.location.href;
+    var splitFlag = "http://";
+    if (webURL.substring(0, 5) == "https") {
+        splitFlag = "https://";
+    }
+    var user = "docfeng";//webURL.split(splitFlag)[1].split(".")[0];
+    //var repos_name=user + '.github.io';
+    var repos_name="blog4";
+	site_url=webURL.match(/(http[s]?:\/\/.*?)\//)[1];
+    //user = 'yanghanqing';
 	var hashObj=getHashObj();
-    blogPath = hashObj.path || blogPath;
+	blogPath=hashObj.path||"blog";
 	var blogFileName=hashObj.file;
 	baseBlogListUrl='https://api.github.com/repos/' + user + '/' + repos_name + '/contents/';
     blogListURL = 'https://api.github.com/repos/' + user + '/' + repos_name + '/contents/'+blogPath;
     issuesList = 'https://api.github.com/repos/' + user + '/' + repos_name + '/issues';
     issuesHTML = 'https://github.com/' + user + '/' + repos_name + '/issues'
-    //readmeURL = '' + user + '/' + repos_name + '/master/About Me.md';
-    readmeURL = site_url + 'About Me.md';
+    //readmeURL = 'https://raw.githubusercontent.com/' + user + '/' + repos_name + '/master/About Me.md';
+	readmeURL = site_url + '/' + 'About Me.md';
 
     $("#header").text(user + "'s Blog");
     $("#commentsList").removeAttr('data_comments_url');
@@ -25,7 +31,7 @@ $(document).ready(function() {
 	titleString = getTitleString();
     setBloglist(blogListURL);
 	if(blogFileName){
-		blogFilePath=site_url + blogPath + "/" + blogFileName;
+		blogFilePath=site_url + '/' +blogPath+"/" + blogFileName;
 		setBlogTxt(blogFilePath);
 		setCommentURL(issuesList, blogFileName);
 	}
@@ -58,7 +64,7 @@ function setBloglist(blogListURL){
 	        // console.log(titleString);
 	        if (name == titleString) {
 	            $("#title").text(name);
-	            readmeURL = site_url + blogFilePath;
+	            readmeURL = site_url + '/' + blogFilePath;
 				setBlogTxt(readmeURL);
 	        }
 	
@@ -67,7 +73,7 @@ function setBloglist(blogListURL){
 	        new_a.attr("data_blogFilePath", blogFilePath);
 	        new_a.attr("data_name", name);
 	        //new_a.attr("href", "?title=" + name);
-	        new_a.attr("href", "javascript:void(0);");
+	        new_a.attr("href", "javascript:void();");
 	        new_a.attr("data_type", type);
 			new_a.attr("data_link_type", link_type);
 	        new_a.attr("onclick", "onBlogListClick(this)");
@@ -106,7 +112,7 @@ function onBlogListClick(obj) {
 		var hashString="path="+window.blogPath+";file="+blogName;
 		location.hash=hashString;
 		
-		blogFilePath = site_url + blogFilePath;
+		blogFilePath = site_url + '/' + blogFilePath;
 		setBlogTxt(blogFilePath);
 		//get comments_url
 		setCommentURL(issuesList, blogName);
