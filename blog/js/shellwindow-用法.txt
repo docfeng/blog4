@@ -1,0 +1,176 @@
+ShellWindows 用法及相关
+实现打开本地浏览器填表，关闭。
+1。如何使用ShellExecute在新的窗口中打开新的网站
+打开VB菜单的 Project|References 项，在References对话框中有一个Microsoft Internet Control项，选中它，然后在Form1中加入一个CommandButton，在Form1中加入一下代码：
+
+ 'Dim dWinFolder As ShellLinkObject
+Dim dWinFolder As ShellWindows
+ 
+Private Sub Command1_Click()
+bBrowser = False
+If dWinFolder.Count = 0 Then
+'没有打开的浏览器窗口，执行常规的ShellExecute 打开网页
+Else
+dWinFolder.Item(0).Navigate "file:///c:/windows/temp/a.htm", navOpenInNewWindow, _
+"_blank", 0, 0
+End If
+End Sub
+ 
+Private Sub Form_Load()
+Set dWinFolder = New ShellWindows
+End Sub
+ 
+Private Sub Form_Unload(Cancel As Integer)
+Set dWinFolder = Nothing
+End Sub
+运行程序，就可以在新窗口中打开了。ShellWindows对象是Windows下运行的所有外壳浏览器的集合。
+2。如何在打开IE的时候自动启动其他程序，在关闭IE的时候一同关闭
+1、工程中引用 Microsoft Internet Controls
+2、在Form1中添加一个ListBox控件
+3、在Form1中添加如下代码：
+
+ Dim WithEvents dWinFolder As ShellWindows
+Dim objIE As Object
+ 
+Private Sub dWinFolder_WindowRegistered(ByVal lCookie As Long)
+   On Error Resume Next
+   For Each objIE In dWinFolder
+     List1.AddItem objIE.Document.Title
+   Next
+End Sub
+ 
+Private Sub dWinFolder_WindowRevoked(ByVal lCookie As Long)
+   If dWinFolder.Count = 0 Then End
+End Sub
+ 
+Private Sub Form_Load()
+   Set dWinFolder = New ShellWindows
+End Sub
+在一个IE窗口创建时会引发 dWinFolder_WindowRegistered事件，在关闭一个窗口时会引发dWinFolder_WindowRevoked事件
+3。用VB自动关闭网页广告窗口
+   网页广告分析：
+   1.弹出的广告窗口
+     网页中弹出的广告窗口都是用JS或VBS编写的脚本程序，每个广告窗口都有自已的URL地址，只要获取所有的IE窗口的URL地址，再把其中的广告窗口的URL地址记录下来保存到文本文件中，并且关闭这个窗口，就达到了自动关闭广告的目的。
+   2.Flash广告窗口
+     有些广告是FLASH动画，只要获得窗口句柄，关闭类名为“MacromediaFlashPlayerActiveX”的FLASH播放控件，就可以关闭这些FLASH广告了。
+     编程原理：通过设置定时器定时搜索，根据IE的程序名判断是否有IE窗口打开，如发现再进一步判断打开的IE的URL的地址是否与记录在列表框中的一致，如相同就关闭它。由于不涉及窗口的类名，无论是IE的各个版本都可以使用。至于网页中的FLASH则是通过“FindWindowEx”函数来一层层的查找打开网页窗口的“MacromediaFlashPlayerActiveX”类名（IE窗口的各个类名是通过工具软件“SPY++”可以获得），并返回窗口句柄，再用“SendMessage”消息函数发送消息关Flash广告窗口。
+   程序设计：
+   新建一个工程，添加一个窗体和控件。
+   1.建立一个用来控制图标在系统托盘的模块“Module1”，相关代码见后文下载地址。
+   2.程序主窗口的部分代码如下：
+
+ Private Sub cmdRightOne_Click()'向黑名单列表中添加网址，cmdLeftOne的代码与此雷同，详见程序源代码
+     On Error Resume Next
+     Dim i As Integer
+     If lstAll.ListCount = 0 Then Exit Sub
+     If lstAll.Text = "" Then Exit Sub
+     lstSelected.AddItem lstAll.Text
+     i = lstAll.ListIndex
+     lstAll.RemoveItem lstAll.ListIndex
+     If lstAll.ListCount > 0 Then
+     If i > lstAll.ListCount - 1 Then
+       lstAll.ListIndex = i - 1
+     Else
+       lstAll.ListIndex = i
+     End If
+     End If
+     lstSelected.ListIndex = lstSelected.NewIndex
+   End Sub
+ 
+   Private Sub closeflash()'关闭flash动画
+   On Error GoTo callerrora
+   Dim sclassname As String
+   Dim windowhandle As Long
+   Dim lhwnd As Long
+   Dim a As Long
+   lhwnd = 0
+   sclassname = ("IEFrame")
+   lhwnd = FindWindowEx(lhwnd, 0, sclassname, vbNullString)
+   sclassname = ("Shell DocObject View")
+   lhwnd = FindWindowEx(lhwnd, 0, sclassname, vbNullString)
+   sclassname = ("Internet Explorer_server")
+   lhwnd = FindWindowEx(lhwnd, 0, sclassname, vbNullString)
+   sclassname = ("MacromediaFlashPlayerActiveX")
+   lhwnd = FindWindowEx(lhwnd, 0, sclassname, vbNullString)
+   windowhandle = lhwnd
+   If windowhandle <> 0 Then
+   a = SendMessage(windowhandle, WM_CLOSE, 0, 0)
+   End If
+   Exit Sub
+   callerrora:
+   MsgBox Err.Description
+   Err.Clear
+   End Sub
+ 
+   Private Sub filter()'过滤黑名单中的广告链接
+   Dim objIE As Object
+   Dim i As Integer
+   On Error Resume Next
+   For Each objIE In dWinFolder '遍历所有IE浏览器窗口
+   If InStr(1, objIE.FullName, "IEXPLORE.EXE", vbTextCompare) <> 0 Then
+   For i = 1 To lstSelected.ListCount - 1
+   If objIE.LocationURL = Trim(lstSelected.List(i)) Then
+   objIE.Quit
+   Exit For
+   End If
+   Next i
+   End If
+   Next
+   objIE = Nothing
+   End Sub
+   代码输入完毕，按F5运行一下吧（如图）！然后在IE中打开一个含有多个广告窗口的网页看一下效果如何，只要单击托盘图标调出程序，按“刷新”按钮就会在左边栏中列出所有的URL地址，把广告窗口的URL地址添加到右边的黑名单中，“确定”后以后就会自动关闭这个广告窗口了。如果想浏览它，再把它从黑名单中删除即可。也可以在托盘图标的右键菜单中，控制功能的开/关。
+4。怎样编程得到当前Web窗口文本信息
+ Dim dWinFolder As New ShellWindows
+Dim WithEvents eventIE As WebBrowser_V1
+ 
+Private Sub Command1_Click()
+   Dim objIE As Object
+ 
+   For Each objIE In dWinFolder
+     If objIE.LocationURL = List1.List(List1.ListIndex) Then
+         Set eventIE = objIE
+         Command1.Enabled = False
+         List1.Enabled = False
+         Text1.Text = ""
+         Exit For
+     End If
+   Next
+End Sub
+ 
+Private Sub eventIE_NavigateComplete(ByVal URL As String)
+   Text1.Text = Text1.Text + Chr(13) + Chr(10) + URL
+End Sub
+在运行前。点击菜单 Projects | References 项，在Available References 列表中选择Microsoft Internet Controls项将Internet对象引用介入到工程中
+
+ Private Sub Form_Load()
+   Dim objIE As Object
+ 
+   For Each objIE In dWinFolder
+     If InStr(1, objIE.FullName, "IEXPLORE.EXE", vbTextCompare) <> 0 Then
+         List1.AddItem objIE.LocationURL
+     End If
+   Next
+   Command1.Caption = "正文"
+End Sub
+ 
+Private Sub Form_Unload(Cancel As Integer)
+   Set dWinFolder = Nothing
+End Sub
+ 
+Private Sub List1_Click()
+   Dim objDoc As Object
+   Dim objIE As Object
+ 
+   For Each objIE In dWinFolder
+     If objIE.LocationURL = List1.List(List1.ListIndex) Then
+         Set objDoc = objIE.Document
+   
+         For i = 1 To objDoc.All.length - 1
+           If objDoc.All(i).tagname = "BODY" Then
+             Text1.Text = objDoc.All(i).innerText
+           End If
+         Next
+         Exit For
+     End If
+   Next
+End Sub
