@@ -1,0 +1,47 @@
+<html>
+<head>
+<title></title>
+
+<script language="JavaScript">
+    function fnShellFolderViewSelectItemJ()
+    {
+        var objFolder;
+        
+        objFolder = WebOC.Document.Folder;
+        if (objFolder != null)
+        {
+            var objFolderItem;
+            
+            objFolderItem = objFolder.Self;
+            if (objFolderItem != null)
+            {
+                WebOC.Document.SelectItem(objFolderItem, 16);
+                alert("item selected");
+            }
+        }
+    }
+    
+    function fnLoad()
+    {
+        var webOC;
+        
+        webOC = document.all("WebOC");
+        webOC.Navigate("C:\\");
+    }
+</script>
+
+</head>
+<body onload="fnLoad()">
+<object id="WebOC"
+        classid="clsid:8856F961-340A-11D0-A96B-00C04FD705A2"
+        width=400
+        height=400>
+</object>
+<br><br>
+<INPUT id=SelectItem 
+       type=button 
+       value=SelectItem 
+       name=SelectItem 
+       onclick="fnShellFolderViewSelectItemJ()">
+</body>
+</html>
