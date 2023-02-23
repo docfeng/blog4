@@ -1,0 +1,149 @@
+using System;
+using System.IO;
+using System.Threading;
+ 
+namespace test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+ 
+            string szRootPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            szRootPath = szRootPath + "..\\..\\test";
+            WatcherStrat(szRootPath, "1.txt");
+            //由于是控制台程序，加个输入避免主线程执行完毕，看不到监控效果
+            Console.ReadKey();
+ 
+        }
+ 
+        static Timer m_Timer = null;
+        static bool m_Changed = false;
+        static object m_LockChanged = new object();
+        static DateTime m_ChangeDt = DateTime.Now;
+        static string m_strPath = string.Empty;
+ 
+        public static bool bChanged
+        {
+            get
+            {
+                lock(m_LockChanged)
+                {
+                    return m_Changed;
+                }
+            }
+            set
+            {
+                lock(m_LockChanged)
+                {
+                    m_Changed = value;
+                }
+            }
+        }
+        public static DateTime ChangeDt
+        {
+            get
+            {
+                lock(m_LockChanged)
+                {
+                    return m_ChangeDt;
+                }
+            }
+            set
+            {
+                lock(m_LockChanged)
+                {
+                    m_ChangeDt = value;
+                }
+            }
+        }
+        private static void WatcherStrat(string path, string filter)
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher
+            {
+                Path = path,
+ 
+                Filter = filter
+            };
+ 
+            watcher.Changed += new FileSystemEventHandler(OnProcess);
+            watcher.Created += new FileSystemEventHandler(OnProcess);
+            watcher.Deleted += new FileSystemEventHandler(OnProcess);
+            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+ 
+            watcher.EnableRaisingEvents = true;
+ 
+            m_Timer = new System.Threading.Timer((o) =>
+            {
+                if(bChanged)
+                {
+                    if((DateTime.Now-ChangeDt).TotalSeconds>1)
+                    {
+                        bChanged = false;
+ 
+                        try
+                        {
+                            string strXml = File.ReadAllText(m_strPath);
+                            Console.WriteLine(strXml);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
+ 
+            }, 0, 1, 1000);
+        }
+ 
+ 
+ 
+ 
+        private static void OnProcess(object source, FileSystemEventArgs e)
+        {
+            if (e.ChangeType == WatcherChangeTypes.Created)
+            {
+                OnCreated(source, e);
+ 
+            }
+            else if (e.ChangeType == WatcherChangeTypes.Changed)
+            {
+                OnChanged(source, e);
+ 
+            }
+            else if (e.ChangeType == WatcherChangeTypes.Deleted)
+            {
+                OnDeleted(source, e);
+ 
+            }
+        }
+ 
+        private static void OnCreated(object source, FileSystemEventArgs e)
+        {
+ 
+            Console.WriteLine("文件新建事件处理逻辑");
+ 
+        }
+ 
+        private static void OnChanged(object source, FileSystemEventArgs e)
+        {
+            bChanged = true;
+            ChangeDt = DateTime.Now;
+            m_strPath = e.FullPath;
+            Console.WriteLine("文件改变事件处理逻辑");
+        }
+ 
+        private static void OnDeleted(object source, FileSystemEventArgs e)
+        {
+ 
+            Console.WriteLine("文件删除事件处理逻辑");
+        }
+ 
+        private static void OnRenamed(object source, RenamedEventArgs e)
+        {
+ 
+            Console.WriteLine("文件重命名事件处理逻辑");
+        }
+ 
+    }
+}
