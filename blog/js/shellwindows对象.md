@@ -46,3 +46,16 @@ for i in range(ShellWindows.Count):
         print '  ', ShellWindows[i].Document.SelectedItems().Item(j).Path
  
 # Be careful: Internet Explorer uses also the same CLSID. You should implement a detection!
+
+Shared ShellApp As Object = CreateObject("Shell.Application")
+
+    Shared Sub SelectFile(filepath As String)
+        For Each i In ShellApp.Windows
+            For Each i2 In i.Document.Folder.Items()
+                If i2.Path = filepath Then
+                    i.Document.SelectItem(i2, 1 + 8)
+                    Exit Sub
+                End If
+            Next
+        Next
+    End Sub
