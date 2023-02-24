@@ -1,3 +1,4 @@
+```
 function addJs(src){
     //document.write("<script language='javascript' src='" + src +"'></script>");
     var newJs = document.createElement("script");
@@ -9,3 +10,4 @@ function addJs(src){
 　　var firstScript = document.getElementsByTagName('script')[0];
 　　firstScript.parentNode.insertBefore(newJs, firstScript);
 }
+```
